@@ -13,6 +13,7 @@ class DeadZoneV2 extends ProjectShowcase {
   genre = "Roguelite arcade hack 'n' slash";
   team = "Solo developer";
   status = "WIP";
+  gore = true;
   info = [["Architecture", "OOP + ECS"]];
   title = "DeadZone V2";
   subtitle = "Roguelite hack 'n' slash rebuild";

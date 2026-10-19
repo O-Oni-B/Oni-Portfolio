@@ -15,7 +15,7 @@ class DeadZoneV1 extends ProjectShowcase {
   title = "DeadZone V1";
   subtitle = "Combat feedback build";
   download = "https://drive.google.com/drive/folders/1k2Fa7sT37v1uuhufPeJsdV_nYK45HjgC?usp=drive_link";
-  contentWarning = "These clips show blood and gore from the combat system.";
+  gore = true;
   blurb = "A playable WIP build focused on combat feel: directional melee hit reactions, HUD hit markers and ALS ragdoll physics.";
 
   overviewTitle = "DeadZone Development Update";
