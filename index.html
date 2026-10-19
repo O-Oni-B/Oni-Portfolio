@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Oni Game Dev Portfolio</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Oni Game Dev Portfolio: Oni Bhardwaj, game developer. Personal projects, released titles, experience, education and contact details.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Chakra+Petch:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body data-root="">
+<div class="bg-circles" aria-hidden="true"><span class="c1"></span><span class="c2"></span><span class="c3"></span><span class="c4"></span><span class="c5"></span></div>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="index.html"><span class="logo-mark" aria-hidden="true"></span>ONI</a>
+    <nav class="nav" aria-label="Main">
+      <a href="#projects">Projects</a>
+      <a class="hide-sm" href="#builds">Builds</a>
+      <a class="hide-sm" href="#released">Released</a>
+      <a class="hide-sm" href="#experience">Experience</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- ============ Intro ============ -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <span class="eyebrow">Welcome to</span>
+        <h1>Oni <em>Game Dev</em> Portfolio</h1>
+        <p class="hero-lede">Showcasing the best in game mechanics and design.</p>
+        <p class="hero-intro">This site shows the mechanics and small games I've made. I finished my Bachelor's in Computer Applications in Game Development from Rayat Bahra University / Seamedu, and I've spent nearly three years in the industry as a game developer at Duckman Studio and Rendered Ideas. Here I'm sharing the skills I've built so far as I keep improving and growing.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#projects"><span class="dot"></span>Choose a project</a>
+          <a class="btn" href="#about">About me</a>
+        </div>
+        <div class="hud" aria-label="Quick stats">
+          <div><strong data-project-count>8</strong><span>Personal projects</span></div>
+          <div><strong data-released-count>3</strong><span>Released titles</span></div>
+          <div><strong>3 yrs</strong><span>Industry experience</span></div>
+          <div><strong>BCA</strong><span>Game Development</span></div>
+        </div>
+      </div>
+
+      <div class="portal">
+        <div class="portal-ring"></div>
+        <div class="portal-ring r2"></div>
+        <div class="portal-ring r3"></div>
+        <div class="portal-orbit" aria-hidden="true"></div>
+        <div class="portal-screen">
+          <img src="assets/profile/oni-bhardwaj.jpg" alt="Oni Bhardwaj" width="720" height="720">
+        </div>
+        <span class="portal-label"><i></i>Player 1 &middot; Oni Bhardwaj</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Personal projects (cards come from js/projects/*) ============ -->
+  <section class="section" id="projects">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Personal projects</span>
+        <h2>Choose a project</h2>
+        <p>Games and mechanics I've built on my own. Each one has its own showcase page with a gameplay clip and an overview of the project. On desktop, hover a card to preview it.</p>
+      </div>
+      <div class="levels" id="project-grid">
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Playable builds (cards come from js/projects/builds/*) ============ -->
+  <section class="section section-tight" id="builds">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Playable builds</span>
+        <h2>Try a build</h2>
+        <p>Projects I took far enough to package as rough work-in-progress builds. Each version has its own build you can download and play.</p>
+      </div>
+      <div class="levels" id="builds-grid"></div>
+    </div>
+  </section>
+
+  <!-- ============ Professional projects (cards come from js/projects/released/*) ============ -->
+  <section class="section section-tight" id="released">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Professional projects</span>
+        <h2>Released titles</h2>
+        <p>These games were made and published during my time at Rendered Ideas (January 2025 to April 2026), where I worked as a Game Developer L1 on each of them.</p>
+      </div>
+      <div class="studio-credit">
+        <div class="released-orb" aria-hidden="true"><span></span></div>
+        <dl>
+          <div><dt>Studio</dt><dd>Rendered Ideas</dd></div>
+          <div><dt>Role</dt><dd>Game Developer L1</dd></div>
+          <div><dt>Released</dt><dd><span data-released-count>3</span> titles</dd></div>
+        </dl>
+      </div>
+      <div class="releases" id="released-grid"></div>
+    </div>
+  </section>
+
+  <!-- ============ Experience ============ -->
+  <section class="section" id="experience">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Career log</span>
+        <h2>Experience</h2>
+        <p>Nearly three years as a game developer across two studios, from apprentice to Game Developer L1.</p>
+      </div>
+      <div class="career">
+        <article class="company">
+          <header>
+            <span class="company-orb" aria-hidden="true">RI</span>
+            <div>
+              <h3>Rendered Ideas Softgame Pvt Ltd</h3>
+              <span class="company-meta">Mira Road, Thane, Maharashtra &middot; Jan 2025 – Apr 2026 &middot; 1 salary raise</span>
+            </div>
+          </header>
+          <ol class="timeline">
+            <li>
+              <span class="when">3 Feb 2026</span>
+              <strong>Salary raise</strong>
+              <span>Awarded a salary raise after completing my first year, in recognition of my contributions to the company.</span>
+              <span class="rank-up">Rank up</span>
+            </li>
+            <li>
+              <span class="when">13 Jan 2025 – 30 Apr 2026</span>
+              <strong>Game Developer L1</strong>
+              <ul class="duties">
+                <li>Developed and published new titles: <a href="#released">Snake It!, Brainrot Game and Wobble Crew</a>.</li>
+                <li>Maintained and updated the company's other existing projects.</li>
+              </ul>
+            </li>
+          </ol>
+        </article>
+
+        <article class="company">
+          <header>
+            <span class="company-orb" aria-hidden="true">DS</span>
+            <div>
+              <h3>Duckman Studio Private Limited</h3>
+              <span class="company-meta">Mar 2023 – Oct 2024 &middot; 2 promotions</span>
+            </div>
+          </header>
+          <ol class="timeline">
+            <li>
+              <span class="when">May 2024 – Oct 2024</span>
+              <strong>Game Developer</strong>
+              <span>Promoted for outstanding performance as a Paid Trainee. Handled more advanced development tasks and contributed to the design, coding and implementation of game features.</span>
+              <span class="rank-up">Rank up</span>
+            </li>
+            <li>
+              <span class="when">Dec 2023 – Apr 2024</span>
+              <strong>Paid Trainee (Game Developer)</strong>
+              <span>Supported the game development process with coding, debugging and tasks from the senior development team.</span>
+              <span class="rank-up">Rank up</span>
+            </li>
+            <li>
+              <span class="when">Mar 2023 – Nov 2023</span>
+              <strong>Apprentice Game Developer and Intern</strong>
+              <span>Started with an apprenticeship followed by an internship, learning across coding, debugging and design.</span>
+            </li>
+          </ol>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ About ============ -->
+  <section class="section" id="about">
+    <div class="wrap about-grid">
+      <div class="section-head">
+        <span class="eyebrow">Player profile</span>
+        <h2>What I'm about</h2>
+      </div>
+
+      <div class="attributes">
+        <article class="attribute">
+          <span class="attr-ring" aria-hidden="true">P</span>
+          <h3>Passion</h3>
+          <p>I'm passionate about game development, and I believe passion is a crucial part of making successful games. This showcase reflects my dedication to the craft and my drive to make games that are truly amazing.</p>
+        </article>
+        <article class="attribute">
+          <span class="attr-ring" aria-hidden="true">S</span>
+          <h3>Skills</h3>
+          <p>I built my skills through my coursework at Seamedu, learning to create games that are engaging, immersive and fun to play. Along the way I also developed skills in programming, game design and project management.</p>
+        </article>
+        <article class="attribute">
+          <span class="attr-ring" aria-hidden="true">C</span>
+          <h3>Creativity</h3>
+          <p>I believe creativity is key to successful games. The projects here show my creativity and innovation, and I aim to make games that are unique and push what's possible in game development at a global level.</p>
+        </article>
+      </div>
+
+      <div class="objective">
+        <div>
+          <span class="eyebrow">Objective</span>
+          <p>I'm a passionate game developer looking for an opportunity to apply my skills and knowledge in game design and development, making entertaining, fun games that push boundaries. My experience with Unity 3D, Unreal Engine, HTML/JavaScript, C++ and C# makes me a strong team player for any studio.</p>
+        </div>
+        <div class="toolkit">
+          <span class="eyebrow">Toolkit</span>
+          <div class="chips">
+            <span class="chip chip-tool">Unity 3D</span>
+            <span class="chip chip-tool">Unreal Engine</span>
+            <span class="chip chip-tool">C++</span>
+            <span class="chip chip-tool">C#</span>
+            <span class="chip chip-tool">HTML</span>
+            <span class="chip chip-tool">JavaScript</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="two-col">
+        <div>
+          <h3 class="sub-head">Education and qualifications</h3>
+          <ol class="timeline">
+            <li>
+              <span class="when">June 2024</span>
+              <strong>Bachelor of Computer Applications (BCA) in Game Development</strong>
+              <span>Seamedu School of Expressionism, Pune &middot; Degree from Rayat Bahra University</span>
+              <span class="score">CGPA 8.04 / 10</span>
+            </li>
+            <li>
+              <span class="when">June 2024</span>
+              <strong>Diploma in Programming Language C++ (60 hours)</strong>
+              <span>Global Sai Education Trust (GSE), Dharamshala, HP</span>
+              <span class="score">Grade A+</span>
+            </li>
+            <li>
+              <span class="when">2021</span>
+              <strong>Class 12, A Levels</strong>
+              <span>Podar International School, Mumbai</span>
+            </li>
+            <li>
+              <span class="when">2019</span>
+              <strong>Class 10, IGCSE</strong>
+              <span>Podar International School, Mumbai</span>
+            </li>
+          </ol>
+        </div>
+
+        <div>
+          <h3 class="sub-head">Certificates</h3>
+          <div class="certs">
+            <button class="cert" type="button" data-view="assets/certificates/bca-game-development-degree.jpg" data-caption="Provisional Degree Certificate, BCA (Game Development), Rayat Bahra University">
+              <img src="assets/certificates/bca-game-development-degree.jpg" alt="" loading="lazy" width="900" height="1283">
+              <span>BCA Game Development<small>Rayat Bahra University</small></span>
+            </button>
+            <button class="cert" type="button" data-view="assets/certificates/cpp-diploma-gse.jpg" data-caption="Certificate, Programming Language C++ (60 hours), Global Sai Education Trust">
+              <img src="assets/certificates/cpp-diploma-gse.jpg" alt="" loading="lazy" width="1400" height="1041">
+              <span>C++ Programming, A+<small>Global Sai Education Trust</small></span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Contact ============ -->
+  <section class="section" id="contact">
+    <div class="wrap">
+      <div class="continue">
+        <div class="countdown" aria-hidden="true">
+          <svg viewBox="0 0 64 64" width="76" height="76" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 22h24c7 0 12 5 13 12l2 10c1 6-6 9-10 5l-6-6H21l-6 6c-4 4-11 1-10-5l2-10c1-7 6-12 13-12z"/>
+            <path d="M19 30v8M15 34h8"/>
+            <circle cx="43" cy="31" r="1.6" fill="currentColor"/>
+            <circle cx="48" cy="36" r="1.6" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="continue-copy">
+          <span class="eyebrow">Player 2, press start</span>
+          <h2>Want to team up on a game?</h2>
+          <p>I'm open to game development roles and collaborations.</p>
+          <ul class="contact-list">
+            <li><span class="contact-label">Email</span><span class="contact-value">onibhardwaz@gmail.com</span><button class="copy" type="button" data-copy="onibhardwaz@gmail.com">Copy</button></li>
+            <li><span class="contact-label">LinkedIn</span><a class="contact-value" href="https://www.linkedin.com/in/oni-bhardwaj-59083421a/" target="_blank" rel="noopener">oni-bhardwaj</a></li>
+            <li><span class="contact-label">Instagram</span><a class="contact-value" href="https://www.instagram.com/oni.game.dev/" target="_blank" rel="noopener">@oni.game.dev</a></li>
+            <li><span class="contact-label">Discord</span><span class="contact-value">o_oni_b_03420</span><button class="copy" type="button" data-copy="o_oni_b_03420">Copy</button></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span>&copy; <span data-year>2026</span> Oni Bhardwaj &middot; Game Developer</span>
+    <span>Oni Game Dev Portfolio</span>
+  </div>
+</footer>
+
+<dialog class="viewer" id="viewer">
+  <figure>
+    <img src="" alt="">
+    <figcaption></figcaption>
+  </figure>
+  <button class="btn" type="button" data-close>Close</button>
+</dialog>
+
+<!-- Base class first, then one file per project, then the page bootstrap -->
+<script src="js/core/ProjectShowcase.js"></script>
+<script src="js/core/ReleasedProject.js"></script>
+<script src="js/projects/doodle-jump.js"></script>
+<script src="js/projects/metallic-odyssey.js"></script>
+<script src="js/projects/zombie-horde-survival.js"></script>
+<script src="js/projects/tactical-skirmish.js"></script>
+<script src="js/projects/urban-reign.js"></script>
+<script src="js/projects/warriors-way.js"></script>
+<script src="js/projects/elemental-katana.js"></script>
+<script src="js/projects/limitless-monster-slaughter.js"></script>
+<script src="js/projects/true-first-person-shooter.js"></script>
+<script src="js/projects/eye-of-the-divine.js"></script>
+<script src="js/projects/builds/deadzone-v1.js"></script>
+<script src="js/projects/builds/deadzone-v2.js"></script>
+<script src="js/projects/released/snake-game.js"></script>
+<script src="js/projects/released/brainrot-game.js"></script>
+<script src="js/projects/released/wobble-crew.js"></script>
+<script src="js/site.js"></script>
+</body>
+</html>

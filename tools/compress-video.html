@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Clip Compressor — Oni Game Dev Portfolio</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Chakra+Petch:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../css/style.css">
+<style>
+  /* Compressor page only — builds on the site tokens in style.css */
+  .tool { display: grid; gap: 1.5rem; padding-block: clamp(2rem, 5vw, 3.5rem) 4rem; max-width: 880px; }
+  .tool h1 { font-size: var(--step-3); }
+  .tool .lede { color: var(--muted); max-width: 62ch; }
+  .drop {
+    display: grid; place-items: center; gap: 0.75rem; text-align: center;
+    padding: clamp(1.5rem, 5vw, 3rem) 1rem;
+    border: 2px dashed var(--line); border-radius: var(--radius); background: var(--panel);
+    cursor: pointer; transition: border-color 0.2s ease;
+  }
+  .drop:hover, .drop.is-over { border-color: var(--coin); }
+  .drop .orb { width: 64px; height: 64px; border-radius: 50%; border: 2px solid var(--coin); display: grid; place-items: center; font-family: var(--font-display); font-size: 1.6rem; color: var(--coin); }
+  .drop p { color: var(--muted); }
+  .panel { display: grid; gap: 1rem; padding: 1.25rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel); }
+  .panel h2 { font-size: 0.8rem; font-family: var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--glow); }
+  .facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0.75rem; margin: 0; }
+  .facts div { display: grid; gap: 0.1rem; }
+  .facts dt { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+  .facts dd { margin: 0; font-family: var(--font-display); font-size: 1.1rem; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+  .fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; }
+  .field { display: grid; gap: 0.35rem; }
+  .field label { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+  .field input, .field select {
+    font: inherit; color: var(--text); background: var(--ink);
+    border: 1px solid var(--line); border-radius: 10px; padding: 0.6rem 0.75rem; min-width: 0;
+  }
+  .field small { color: var(--muted); font-size: 0.8rem; }
+  .panel > .btn, .field > .btn { justify-self: start; }
+  .bar { height: 12px; border-radius: 999px; background: var(--ink); border: 1px solid var(--line); overflow: hidden; }
+  .bar span { display: block; height: 100%; width: 0; background: var(--coin); transition: width 0.2s ease; }
+  .status { color: var(--muted); font-family: var(--font-mono); font-size: 0.85rem; }
+  .status.error { color: var(--danger); }
+  .result-video { width: 100%; border-radius: 10px; border: 1px solid var(--line); background: #000; }
+  .downloads { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+  .steps { margin: 0; padding-left: 1.2rem; display: grid; gap: 0.4rem; color: var(--muted); }
+  .steps code { font-family: var(--font-mono); color: var(--text); font-size: 0.85rem; }
+</style>
+</head>
+<body>
+<div class="bg-circles" aria-hidden="true"><span class="c1"></span><span class="c2"></span><span class="c3"></span><span class="c4"></span><span class="c5"></span></div>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="../index.html"><span class="logo-mark" aria-hidden="true"></span>ONI</a>
+    <nav class="nav" aria-label="Main"><a href="../index.html#projects">Projects</a></nav>
+  </div>
+</header>
+
+<main class="wrap tool">
+  <div class="section-head">
+    <span class="eyebrow">Tools</span>
+    <h1>Clip compressor</h1>
+    <p class="lede">Shrinks a gameplay recording to a web-ready MP4. Everything runs on your own computer in this browser tab, so there is no upload and no file size limit on the input. Use Chrome or Edge.</p>
+  </div>
+
+  <label class="drop" id="drop" for="file">
+    <span class="orb" aria-hidden="true">+</span>
+    <strong>Choose a video, or drop it here</strong>
+    <p>MP4, MOV, MKV or WebM, any size</p>
+    <input id="file" type="file" accept="video/*" hidden>
+  </label>
+
+  <section class="panel" id="source" hidden>
+    <h2>Source</h2>
+    <dl class="facts">
+      <div><dt>File</dt><dd id="srcName">–</dd></div>
+      <div><dt>Size</dt><dd id="srcSize">–</dd></div>
+      <div><dt>Length</dt><dd id="srcLength">–</dd></div>
+      <div><dt>Resolution</dt><dd id="srcRes">–</dd></div>
+    </dl>
+
+    <div class="fields">
+      <div class="field">
+        <label for="name">Clip number</label>
+        <input id="name" type="text" value="01" spellcheck="false" inputmode="numeric">
+        <small>Saved as 01.mp4. Use the next free number in the folder.</small>
+      </div>
+      <div class="field">
+        <label for="height">Max height</label>
+        <select id="height">
+          <option value="720" selected>720p (recommended)</option>
+          <option value="1080">1080p</option>
+          <option value="540">540p</option>
+          <option value="0">Keep original</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="target">Target size (MB)</label>
+        <input id="target" type="number" min="2" max="100" step="1" value="14">
+        <small>14 MB fits the site's 15 MB per-file limit</small>
+      </div>
+      <div class="field">
+        <label for="audio">Audio</label>
+        <select id="audio">
+          <option value="keep" selected>Keep</option>
+          <option value="drop">Remove</option>
+        </select>
+      </div>
+    </div>
+
+    <button class="btn btn-primary" id="go" type="button"><span class="dot"></span>Compress</button>
+    <div class="bar" aria-hidden="true"><span id="barFill"></span></div>
+    <p class="status" id="status" role="status">Ready.</p>
+  </section>
+
+  <section class="panel" id="done" hidden>
+    <h2>Result</h2>
+    <dl class="facts">
+      <div><dt>New size</dt><dd id="outSize">–</dd></div>
+      <div><dt>Saved</dt><dd id="outSaved">–</dd></div>
+      <div><dt>Length</dt><dd id="outLength">–</dd></div>
+      <div><dt>Resolution</dt><dd id="outRes">–</dd></div>
+    </dl>
+    <video id="outVideo" class="result-video" controls playsinline></video>
+    <div class="downloads">
+      <a class="btn btn-primary" id="dlVideo" download><span class="dot"></span>Save video</a>
+    </div>
+    <ol class="steps">
+      <li>Save the video.</li>
+      <li>Drop it into the project's folder, for example <code>assets/limitless-monster-slaughter/</code>. For a versioned project, use its version folder, for example <code>assets/urban-reign/v2/</code>.</li>
+      <li>Refresh the project page. It appears in the picker as the next "Video" number.</li>
+      <li>Full rules: <code>assets/README.md</code>.</li>
+    </ol>
+  </section>
+</main>
+
+<script type="module">
+  // Mediabunny: in-browser video conversion using the browser's own hardware encoders (WebCodecs).
+  import {
+    Input, Output, Conversion, BlobSource, BufferTarget, Mp4OutputFormat, WebMOutputFormat, ALL_FORMATS,
+    getFirstEncodableVideoCodec,
+  } from "https://cdn.jsdelivr.net/npm/mediabunny@1.60.0/dist/bundles/mediabunny.min.mjs";
+
+  const $ = (id) => document.getElementById(id);
+  const AUDIO_BITRATE = 96_000;
+  let source = null; // { file, duration, width, height }
+  let urls = [];
+
+  const mb = (bytes) => `${(bytes / 1_000_000).toFixed(1)} MB`;
+  const clock = (s) => `${Math.floor(s / 60)}:${String(Math.round(s % 60)).padStart(2, "0")}`;
+  const status = (text, isError = false) => {
+    $("status").textContent = text;
+    $("status").classList.toggle("error", isError);
+  };
+
+  /* ---------- Load a file ---------- */
+  async function load(file) {
+    if (!file) return;
+    $("done").hidden = true;
+    $("source").hidden = false;
+    $("srcName").textContent = file.name;
+    $("srcSize").textContent = mb(file.size);
+    $("srcLength").textContent = "…";
+    $("srcRes").textContent = "…";
+    $("barFill").style.width = "0";
+
+    try {
+      const input = new Input({ source: new BlobSource(file), formats: ALL_FORMATS });
+      const track = await input.getPrimaryVideoTrack();
+      if (!track) throw new Error("This file has no video track.");
+      const duration = await input.computeDuration();
+      source = { file, duration, width: track.displayWidth, height: track.displayHeight };
+      $("srcLength").textContent = clock(duration);
+      $("srcRes").textContent = `${track.displayWidth}×${track.displayHeight}`;
+      status("Ready. Pick your settings and press Compress.");
+    } catch (err) {
+      source = null;
+      status(`Couldn't read this file: ${err.message}`, true);
+    }
+  }
+
+  $("file").addEventListener("change", (e) => load(e.target.files[0]));
+  const drop = $("drop");
+  ["dragenter", "dragover"].forEach((t) => drop.addEventListener(t, (e) => { e.preventDefault(); drop.classList.add("is-over"); }));
+  ["dragleave", "drop"].forEach((t) => drop.addEventListener(t, (e) => { e.preventDefault(); drop.classList.remove("is-over"); }));
+  drop.addEventListener("drop", (e) => load(e.dataTransfer.files[0]));
+
+  /* ---------- Compress ---------- */
+  $("go").addEventListener("click", async () => {
+    if (!source) return;
+    $("go").disabled = true;
+    $("done").hidden = true;
+    urls.forEach(URL.revokeObjectURL);
+    urls = [];
+
+    try {
+      // H.264 MP4 plays everywhere. If this browser can't encode it, fall back to VP9 WebM.
+      const codec = await getFirstEncodableVideoCodec(["avc", "vp9"]);
+      if (!codec) throw new Error("This browser can't encode video. Open this page in Chrome or Edge.");
+      const mp4 = codec === "avc";
+
+      // Pick a video bitrate that lands the file just under the target size.
+      const keepAudio = $("audio").value === "keep";
+      const targetBits = Number($("target").value || 14) * 8_000_000 * 0.94;
+      const audioBits = keepAudio ? AUDIO_BITRATE : 0;
+      const videoBitrate = Math.round(Math.min(5_000_000, Math.max(250_000, targetBits / source.duration - audioBits)));
+
+      const maxH = Number($("height").value);
+      const height = maxH && source.height > maxH ? maxH : undefined; // never upscale
+
+      const input = new Input({ source: new BlobSource(source.file), formats: ALL_FORMATS });
+      const format = mp4 ? new Mp4OutputFormat({ fastStart: "in-memory" }) : new WebMOutputFormat();
+      const output = new Output({ format, target: new BufferTarget() });
+      const conversion = await Conversion.init({
+        input,
+        output,
+        video: { codec, bitrate: videoBitrate, height, forceTranscode: true },
+        audio: keepAudio ? { codec: mp4 ? "aac" : "opus", bitrate: AUDIO_BITRATE } : { discard: true },
+      });
+
+      if (!conversion.isValid) {
+        const reasons = conversion.discardedTracks.map((d) => `${d.track.type}: ${d.reason}`).join(", ");
+        throw new Error(`This file can't be converted here (${reasons}).`);
+      }
+
+      conversion.onProgress = (p) => {
+        $("barFill").style.width = `${Math.round(p * 100)}%`;
+        status(`Compressing… ${Math.round(p * 100)}%  (${clock(p * source.duration)} of ${clock(source.duration)})`);
+      };
+      status("Compressing… 0%");
+      await conversion.execute();
+
+      const blob = new Blob([output.target.buffer], { type: mp4 ? "video/mp4" : "video/webm" });
+      await showResult(blob, mp4 ? "mp4" : "webm");
+      status(mp4 ? "Done." : "Done. This browser can't make MP4, so the clip was saved as WebM, which also plays on the site.");
+    } catch (err) {
+      status(err.message || String(err), true);
+    } finally {
+      $("go").disabled = false;
+    }
+  });
+
+  /* ---------- Result ---------- */
+  async function showResult(blob, ext) {
+    const raw = $("name").value.trim();
+    const name = /^\d+$/.test(raw) ? raw.padStart(2, "0") : raw || "01";
+    const videoUrl = URL.createObjectURL(blob);
+    urls.push(videoUrl);
+
+    const video = $("outVideo");
+    video.src = videoUrl;
+    await new Promise((res) => (video.onloadedmetadata = res));
+
+
+    $("dlVideo").href = videoUrl;
+    $("dlVideo").download = `${name}.${ext}`;
+
+    $("outSize").textContent = mb(blob.size);
+    $("outSaved").textContent = `${Math.max(0, Math.round((1 - blob.size / source.file.size) * 100))}%`;
+    $("outLength").textContent = clock(video.duration);
+    $("outRes").textContent = `${video.videoWidth}×${video.videoHeight}`;
+
+    $("done").hidden = false;
+    $("done").scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+</script>
+</body>
+</html>
