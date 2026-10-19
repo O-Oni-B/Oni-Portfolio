@@ -1,7 +1,7 @@
 /**
  * Warrior's Way — one project, two versions.
  * V1: sword, shield and parry. V2: Leviathan-style axe and the Gameplay Ability System.
- * Both versions show gore, so the content warning is set once for the whole project.
+ * Both versions show gore, so the Gore tag is set once for the whole project.
  */
 class WarriorsWay extends ProjectShowcase {
   slug = "warriors-way";
@@ -11,7 +11,7 @@ class WarriorsWay extends ProjectShowcase {
   genre = "Melee action";
   status = "WIP";
   team = "Solo developer";
-  contentWarning = "This clip shows blood and gore from the combat system.";
+  gore = true;
   blurb = "Medieval melee combat that grew from sword, shield and parry in V1 to a Leviathan-style axe and unlockable abilities in V2.";
 
   versions = [

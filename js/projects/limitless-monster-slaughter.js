@@ -10,7 +10,7 @@ class LimitlessMonsterSlaughter extends ProjectShowcase {
   subtitle = "Zombie survival shooter";
   engine = "Unreal Engine";
   genre = "Third-person shooter";
-  contentWarning = "This clip shows blood and gore from the combat system.";
+  gore = true;
   blurb = "An adrenaline-fueled third-person shooter that pits you against relentless hordes of zombies in a battle for survival.";
 
 

@@ -352,8 +352,6 @@ p { margin: 0; }
 .level-media.portrait img,
 .level-media.portrait video { object-position: center 30%; }
 .level-media video.still { opacity: 1; }
-.level-media.gore img,
-.level-media.gore video.still { filter: blur(10px) saturate(0.6); transform: scale(1.08); }
 
 .level-node {
   position: absolute;
@@ -487,9 +485,6 @@ p { margin: 0; }
 .screen-bar .dots { display: flex; gap: 6px; }
 .screen-bar .dots i { width: 10px; height: 10px; border-radius: 50%; border: 1px solid var(--line); }
 .screen-bar .dots i:first-child { background: var(--coin); border-color: var(--coin); }
-
-.gate p { color: var(--muted); max-width: 36ch; }
-.gate strong { font-family: var(--font-display); font-size: var(--step-1); color: var(--danger); }
 
 .stats {
   border: 1px solid var(--line);
@@ -660,7 +655,6 @@ p { margin: 0; }
 }
 .player-status code { color: var(--coin); }
 .clip-thumb video { width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
-.clip-tab.gore .clip-thumb video { filter: blur(4px) saturate(0.6); }
 .player { display: grid; gap: 0.75rem; min-width: 0; align-content: start; }
 .clip-picker {
   display: flex;
@@ -695,32 +689,15 @@ p { margin: 0; }
 }
 .clip-tab.is-active .clip-thumb { border-color: var(--coin); box-shadow: 0 0 12px rgba(255, 181, 71, 0.35); }
 .clip-thumb img { width: 100%; height: 100%; object-fit: cover; }
-.clip-tab.gore .clip-thumb img { filter: blur(4px) saturate(0.6); }
 .clip-meta { display: grid; text-align: left; line-height: 1.25; }
 .clip-meta strong { font-family: var(--font-display); font-weight: 600; font-size: 0.92rem; }
 .clip-meta small { font-family: var(--font-mono); font-size: 0.7rem; color: var(--muted); }
 
-/* ---------- Video stage + content warning gate ---------- */
+/* ---------- Video stage ---------- */
 .screen-stage { position: relative; }
 .screen-stage video { width: 100%; height: auto; transition: filter 0.3s ease; }
 .screen-image { display: block; cursor: zoom-in; }
 .screen-image img { width: 100%; aspect-ratio: 16 / 9; max-width: 100%; object-fit: contain; background: #000; transition: filter 0.3s ease; }
-.screen.is-gated .screen-image img { filter: blur(14px) saturate(0.6); }
-.screen.is-gated video { filter: blur(14px) saturate(0.6); }
-.gate {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  align-content: center;
-  gap: 1rem;
-  padding: 1.5rem;
-  text-align: center;
-  background: rgba(14, 16, 23, 0.7);
-  z-index: 3;
-}
-.gate p { color: var(--muted); max-width: 36ch; }
-.gate strong { font-family: var(--font-display); font-size: var(--step-1); color: var(--danger); }
 
 /* ---------- Hero intro ---------- */
 .hero-intro { color: var(--muted); max-width: 58ch; }

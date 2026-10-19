@@ -6,7 +6,7 @@
  * code change. All shared behaviour lives here:
  *   - its card on the home page, with a hover preview
  *   - its showcase page: player, clip picker, info panel, overview, features, pager
- *   - the content-warning gate on mature clips
+ *   - a "Gore" tag for projects with gore (gore = true)
  *   - optional versions (V1, V2...) with a switcher
  *
  * MEDIA — see assets/README.md for the full naming rules
@@ -165,7 +165,7 @@ class ProjectShowcase {
 
   orientation = "landscape";  // "landscape" | "portrait"
   previewStart = 5;           // seconds into clip 01 where the card's hover preview starts
-  contentWarning = "";        // non-empty = blur stills and gate every clip
+  gore = false;               // true = show a "Gore" tag on the card and page (no blur, videos play normally)
 
   versions = [];          // optional — see VERSIONS above
 
@@ -261,7 +261,7 @@ class ProjectShowcase {
     if (this.hasVersions) chips.push({ label: `${this.versions.length} versions`, kind: "up" });
     if (this.hasBuild) chips.push({ label: "Playable build", kind: "up" });
     if (this.isWip) chips.push({ label: "WIP", kind: "wip" });
-    if (this.contentWarning) chips.push({ label: "Gore", kind: "gore" });
+    if (this.gore) chips.push({ label: "Gore", kind: "gore" });
     return chips;
   }
 
@@ -289,7 +289,7 @@ class ProjectShowcase {
   /** Cards show the latest version, previewed by a frame from its first video. */
   renderCard(root) {
     const esc = ProjectShowcase.esc;
-    const mediaClass = ["level-media", this.pick("orientation"), this.contentWarning ? "gore" : ""]
+    const mediaClass = ["level-media", this.pick("orientation"), ""]
       .filter(Boolean)
       .join(" ");
 
@@ -339,13 +339,12 @@ class ProjectShowcase {
         empty.className = "media-empty";
         empty.innerHTML = "<i></i>Videos coming soon";
         img.replaceWith(empty);
-        media.classList.remove("gore");
       };
       still.replaceWith(img);
       img.onerror();
     };
 
-    if (this.contentWarning || !Site.canHover || Site.reduceMotion) return;
+    if (!Site.canHover || Site.reduceMotion) return;
     let video = null;
     card.addEventListener("mouseenter", () => {
       if (!video) {
@@ -393,24 +392,22 @@ class ProjectShowcase {
     const esc = ProjectShowcase.esc;
     const clip = this.activeClip;
     const isImage = clip.kind === "image";
-    const gated = Boolean(this.contentWarning) && !isImage; // the content warning covers videos only
     const title = this.clipTitle(clip);
     const label = [this.hasVersions ? this.activeVersion.label : "", title].filter(Boolean).join(" · ");
     const facts = [esc(label), isImage ? "" : ProjectShowcase.clock(clip.duration)].filter(Boolean).join(" &middot; ");
     // Videos start a moment in so the player shows a real frame before play.
     const media = isImage
       ? `<a class="screen-image" href="${clip.url}" target="_blank" rel="noopener" title="Open full size"><img src="${clip.url}" alt="${esc(this.title)}, ${esc(title)}"></a>`
-      : `<video src="${clip.url}#t=0.5" playsinline preload="metadata" ${gated ? "" : "controls"}></video>`;
+      : `<video src="${clip.url}#t=0.5" playsinline preload="metadata" controls></video>`;
 
     return `
-      <div class="screen ${this.pick("orientation")}${gated ? " is-gated" : ""}">
+      <div class="screen ${this.pick("orientation")}">
         <div class="screen-bar">
           <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
           <span>${facts}</span>
         </div>
         <div class="screen-stage">
           ${media}
-          ${gated ? this.renderGate(isImage) : ""}
         </div>
       </div>`;
   }
@@ -426,22 +423,13 @@ class ProjectShowcase {
             ? `<img src="${c.url}" alt="" loading="lazy">`
             : `<video src="${c.url}#t=1" muted preload="metadata" playsinline tabindex="-1"></video>`;
           return `
-        <button class="clip-tab${i === active ? " is-active" : ""}${this.contentWarning && c.kind !== "image" ? " gore" : ""}" type="button"
+        <button class="clip-tab${i === active ? " is-active" : ""}" type="button"
           role="tab" aria-selected="${i === active}" data-clip="${i}">
           <span class="clip-thumb">${thumb}</span>
           <span class="clip-meta"><strong>${esc(this.clipTitle(c))}</strong><small>${c.kind === "image" ? "Image" : ProjectShowcase.clock(c.duration)}</small></span>
         </button>`;
         })
         .join("")}</div>`;
-  }
-
-  renderGate(isImage = false) {
-    return `
-      <div class="gate">
-        <strong>Content warning</strong>
-        <p>${ProjectShowcase.esc(this.contentWarning)}</p>
-        <button class="btn btn-primary" type="button" data-gate-open><span class="dot"></span>${isImage ? "Show image" : "Play clip"}</button>
-      </div>`;
   }
 
   /* ------------------------------------------------------------------ */
@@ -617,19 +605,6 @@ class ProjectShowcase {
       });
     });
 
-    const gateButton = player.querySelector("[data-gate-open]");
-    if (gateButton) {
-      gateButton.addEventListener("click", () => {
-        const screen = gateButton.closest(".screen");
-        const video = screen.querySelector("video");
-        screen.querySelector(".gate").remove();
-        screen.classList.remove("is-gated");
-        if (!video) return; // images just need the blur removed
-        video.controls = true;
-        video.play().catch(() => {});
-        video.focus();
-      });
-    }
   }
 
   /** Switches version in place: redraws the player, info, overview and features. */
